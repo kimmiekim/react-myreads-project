@@ -18,6 +18,7 @@ updateQuery = (query) => {
 
     let showingBooks
 
+    // filter the list with search query
     if(query){
       console.log("query length", query.length)
       const match = new RegExp(escapeRegExp(query), 'i')
@@ -28,10 +29,7 @@ updateQuery = (query) => {
     }
     showingBooks.sort(sortBy('title'))
 
-
-
     return (
-
       <div className="search-books">
         <div className="search-books-bar">
           <Link to="/" className="close-search">Close</Link>
@@ -49,28 +47,32 @@ updateQuery = (query) => {
                     type="text"
                     placeholder="Search by title or author"
                   />
-            {JSON.stringify(this.state)}
+            {/* {JSON.stringify(this.state)} */}
           </div>
         </div>
 
         {showingBooks.map((book) => (
           <div className="search-books-results">
-              <div key={book.id} className="book">
-                <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
-                  <div className="book-shelf-changer">
-                    <select>
-                      <option value="none" disabled>Move to...</option>
-                      <option value="currentlyReading">Currently Reading</option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
-                    </select>
+            <ol className="books-grid">
+              <li key={book.id}>
+                <div className="book">
+                  <div className="book-top">
+                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
+                    <div className="book-shelf-changer">
+                      <select>
+                        <option value="none" disabled>Move to...</option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                      </select>
+                    </div>
                   </div>
+                  <div className="book-title">{book.title}</div>
+                  <div className="book-authors">{book.authors}</div>
                 </div>
-                <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors}</div>
-              </div>
+              </li>
+            </ol>
 
           </div>
           )
