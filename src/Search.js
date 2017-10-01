@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
+import BookStateless from './BookStateless'
+
 class Search extends Component {
   state={
     query: ''
@@ -53,8 +55,8 @@ updateQuery = (query) => {
 
         {showingBooks.map((book) => (
           <div className="search-books-results">
-            <ol className="books-grid">
-              <li key={book.id}>
+            {/* <ol className="books-grid"> */}
+              {/* <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
@@ -71,8 +73,9 @@ updateQuery = (query) => {
                   <div className="book-title">{book.title}</div>
                   <div className="book-authors">{book.authors}</div>
                 </div>
-              </li>
-            </ol>
+              </li> */}
+              <BookStateless book={book}/>
+            {/* </ol> */}
 
           </div>
           )
