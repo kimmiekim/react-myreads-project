@@ -1,44 +1,65 @@
 import React, { Component } from 'react'
+// import * as BooksAPI from './BooksAPI'
+
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 
 class Book extends Component {
   state={
     // state can be read, none, want to read, or currently reading
-    status: ''
+    shelf: ''
   }
-  changeStatus = (val)=> ({ status: val})
-  // console.log(val)
+
+// update the status in BookAPI using .update method
+  // changeStatus(book, shelf){
+  //   BooksAPI.update(book, shelf).then((book, shelf) => {
+  //     book.setState(state => ({
+  //       status : shelf
+  //     }))
+  //   })
+  //   console.log(this, shelf)
+  // }
+
+  handleChange(e){
+    this.setState({ shelf: e['value'] })
+    console.log("this?", this)
+  }
+
 
 
   render(){
-    const { books } = this.props
-      // const book = this.props.books
-      // const book = book.map((book)=> ({book}))
-      console.log("books",books)
-    return(
-      <ol className="books-grid">
-        {books.map((book)=> {
-          return (
-            <li key={book.id}>
-              <div className="book">
-                <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
-                  <div className="book-shelf-changer">
-                    <select>
-                      <option value="none" onChange={this.changeStatus}>Move to...</option>
-                      <option value="currentlyReading" onChange={this.changeStatus}>Currently Reading</option>
-                      <option value="wantToRead" onChange={this.changeStatus}>Want to Read</option>
-                      <option value="read" onChange={this.changeStatus}>Read</option>
-                      <option value="none" onChange={this.changeStatus}>None</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors}</div>
-              </div>
-            </li>
-          )
-        })}
-      </ol>
+    const { book } = this.props
+    const { shelf } = this.state
+    console.log("book", book.state)
+
+    const options = [
+      { value: 'currentlyReading', label: 'currentlyReading'},
+      { value: 'wantToRead', label: 'wantToRead'},
+      { value: 'read', label: 'read'},
+      { value: 'none', label: 'none'}
+    ]
+
+    return (
+      <li key={book.id}>
+        <div className="book">
+          <div className="book-top">
+            <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
+            <div className="book-shelf-changer">
+
+              <Select
+                value=""
+                options={options}
+                onChange={(e)=>this.handleChange(e)}
+              />
+
+
+            </div>
+          </div>
+          <div className="book-title">{book.title}</div>
+          <div className="book-authors">{book.authors}</div>
+        </div>
+      </li>
+
     )
   }
 }

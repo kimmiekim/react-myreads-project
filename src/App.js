@@ -2,7 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Search from './Search'
-// import BookList from './BookList'
+import BookList from './BookList'
 import Book from './Book'
 
 
@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
   componentDidMount(){
     BooksAPI.getAll().then((books)=> {
       this.setState({ books: books })
-      console.log(books)
+      // console.log("bookstest",this)
     })
   }
 
@@ -35,10 +35,13 @@ class BooksApp extends React.Component {
     return (
       <div className="App">
         <Route exact path="/" render={()=>(
-          <Book books={this.state.books}/>
+          <Book books={this.state.books} />
         )} />
         <Route path="/search" render={()=>(
-          <Search books={this.state.books}/>
+          <Search books={this.state.books} />
+        )} />
+        <Route path="/BookList" render={()=>(
+          <BookList books={this.state.books} />
         )} />
 
       </div>

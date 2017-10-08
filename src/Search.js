@@ -14,9 +14,9 @@ updateQuery = (query) => {
     console.log("this", query)
   }
   render() {
-    const query = this.state.query
+    const { query } = this.state
     console.log("testing query", typeof query)
-    const books = this.props.books
+    const { books } = this.props
 
     let showingBooks
 
