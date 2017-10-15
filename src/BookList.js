@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 
 class BookList extends Component {
-  render(){
-    const { books, shelf } = this.props
 
+  componentDidMount() {
+    this.props.listBooks()
+  }
+
+  render(){
+    const { books } = this.props
+    const currentlyReading = books.filter((book) => {book.shelf === 'currentlyReading'})
+    const wantToRead = books.filter((book) => {book.shelf === 'wantToRead'})
+    const read = books.filter((book) => book.shelf === 'read' )
 
     return (
     <div className="list-books">
@@ -16,60 +23,30 @@ class BookList extends Component {
         </div>
 
         <div className="bookshelf">
-          <h2 className="bookshelf-title">None</h2>
+          <h2 className="bookshelf-title">Read</h2>
           {books.map((book)=> {
-            console.log(book)
-            if (shelf === ''){
+            if (book.shelf === 'read'){
               return <div className="bookshelf-books">
                     {/* <BookStateless book= {book} /> */}
-                    <Book book = {book} />
+                    <Book key={book.id} book = {book} onChangeBookshelf = {this.props.onHandleChange}/>
                       {/* <BookStateless book= {book} /> */}
                     </div>
-
             }
           })}
         </div>
 
-
         <div className="bookshelf">
-          <h2 className="bookshelf-title">Currently Reading</h2>
-            {books.map((book)=> {
-              if (shelf === 'currentlyReading'){
-                return <div className="bookshelf-books">
+          <h2 className="bookshelf-title">currently Reading</h2>
+          {books.map((book)=> {
+            if (book.shelf === 'currentlyReading'){
+              return <div className="bookshelf-books">
+                    {/* <BookStateless book= {book} /> */}
+                    <Book key={book.id} book = {book} onChangeBookshelf = {this.props.onHandleChange}/>
                       {/* <BookStateless book= {book} /> */}
-                      <Book book = {book} />
-                      </div>
-              }
-              // console.log(this.book.title, this.book.state)
-            })}
-          </div>
-
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Want to Read</h2>
-            {books.map((book)=> {
-              if (shelf === 'wantToRead'){
-                return <div className="bookshelf-books">
-                      {/* <BookStateless book= {book} /> */}
-                      <Book book = {book} />
-                        {/* <BookStateless book= {book} /> */}
-                      </div>
-              }
-              // console.log(this.book.title, this.book.state)
-            })}
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Read</h2>
-            {books.map((book)=> {
-              if (shelf === 'read'){
-                console.log(shelf)
-                return <div className="bookshelf-books">
-                      {/* <BookStateless book= {book} /> */}
-                      <Book book = {book} />
-                      </div>
-              }
-              // console.log(this.book.title, this.book.state)
-            })}
-          </div>
+                    </div>
+            }
+          })}
+        </div>
 
       </div>
       <div className="open-search">

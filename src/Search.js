@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
-import BookStateless from './BookStateless'
+// import BookStateless from './BookStateless'
+import Book from './Book'
 
 class Search extends Component {
   state={
@@ -74,7 +75,7 @@ updateQuery = (query) => {
                   <div className="book-authors">{book.authors}</div>
                 </div>
               </li> */}
-              <BookStateless book={book}/>
+              <Book key={book.id} book={book} onChangeBookshelf = {this.props.onHandleChange}/>
             {/* </ol> */}
 
           </div>
