@@ -10,11 +10,11 @@ class Book extends Component {
     onChangeBookshelf: PropTypes.func.isRequired
   }
 
-  handleChange(e){
-    const { onChangeBookshelf } = this.props
+  handleChange(shelf){
+    const { onChangeBookshelf, book } = this.props
     // e = this.props.book.shelf
-    console.log("hello", e)
-    onChangeBookshelf(this, e)
+    console.log("hello", this.props.book.id)
+    onChangeBookshelf(book, shelf)
   }
 
   render(){

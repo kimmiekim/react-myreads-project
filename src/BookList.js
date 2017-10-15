@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import BookShelf from './BookShelf'
 import Book from './Book'
 
 class BookList extends Component {
@@ -10,7 +11,7 @@ class BookList extends Component {
   }
 
   render(){
-    const { books } = this.props
+    const { books, onHandleChange } = this.props
     const currentlyReading = books.filter((book) => {book.shelf === 'currentlyReading'})
     const wantToRead = books.filter((book) => {book.shelf === 'wantToRead'})
     const read = books.filter((book) => book.shelf === 'read' )
@@ -22,30 +23,10 @@ class BookList extends Component {
           <h1>MyReads</h1>
         </div>
 
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Read</h2>
-          {books.map((book)=> {
-            if (book.shelf === 'read'){
-              return <div className="bookshelf-books">
-                    {/* <BookStateless book= {book} /> */}
-                    <Book key={book.id} book = {book} onChangeBookshelf = {this.props.onHandleChange}/>
-                      {/* <BookStateless book= {book} /> */}
-                    </div>
-            }
-          })}
-        </div>
-
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">currently Reading</h2>
-          {books.map((book)=> {
-            if (book.shelf === 'currentlyReading'){
-              return <div className="bookshelf-books">
-                    {/* <BookStateless book= {book} /> */}
-                    <Book key={book.id} book = {book} onChangeBookshelf = {this.props.onHandleChange}/>
-                      {/* <BookStateless book= {book} /> */}
-                    </div>
-            }
-          })}
+        <div className='list-books-content'>
+          <BookShelf books={read} onHandleChange={onHandleChange} title='Read' />
+          <BookShelf books={currentlyReading} onHandleChange={onHandleChange} title='Currently Reading' />
+          <BookShelf books={wantToRead} onHandleChange={onHandleChange} title='Want To Read' />
         </div>
 
       </div>

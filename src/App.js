@@ -21,7 +21,6 @@ class BooksApp extends React.Component {
      */
   }
 
-  // componentDidMount(){
   listBooks = () => {
     BooksAPI.getAll().then((books)=> {
       this.setState({ books: books })
@@ -31,25 +30,20 @@ class BooksApp extends React.Component {
 
 // upon user input, sends the shelf status changes to the database and updates it:
   updateShelf=(book, shelf)=> {
-  // console.log("book", book.props.book.shelf)
-  // console.log("shelf", book)
     BooksAPI.update(book, shelf).then((data) => {
-      console.log("data", shelf)
+      console.log("data", book.id)
       this.setState((currentState)=>({
         books: currentState.books.map((b) => {
-          if (book.props.book.id === b.id){
+          if (book.id === b.id){
             console.log("working??", shelf)
-            book.shelf = shelf
+            b.shelf = shelf
           }
           return b
 
         })
       }))
-  })
-    // this.setState({ books: e })
-    // console.log("e", this.state)
-
-   }
+    })
+  }
 
   render() {
     return (
