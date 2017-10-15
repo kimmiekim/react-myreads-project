@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import BookShelf from './BookShelf'
-import Book from './Book'
+
 
 class BookList extends Component {
 
@@ -11,10 +11,10 @@ class BookList extends Component {
   }
 
   render(){
-    const { books, onHandleChange } = this.props
-    const currentlyReading = books.filter((book) => {book.shelf === 'currentlyReading'})
-    const wantToRead = books.filter((book) => {book.shelf === 'wantToRead'})
-    const read = books.filter((book) => book.shelf === 'read' )
+    const { books, onHandleChange }= this.props
+    const currentlyReading= books.filter((book)=> book.shelf=== 'currentlyReading')
+    const wantToRead= books.filter((book)=> book.shelf=== 'wantToRead')
+    const read= books.filter((book)=> book.shelf=== 'read' )
 
     return (
     <div className="list-books">
@@ -24,9 +24,9 @@ class BookList extends Component {
         </div>
 
         <div className='list-books-content'>
+          <BookShelf books={wantToRead} onHandleChange={onHandleChange} title='Want To Read' />
           <BookShelf books={read} onHandleChange={onHandleChange} title='Read' />
           <BookShelf books={currentlyReading} onHandleChange={onHandleChange} title='Currently Reading' />
-          <BookShelf books={wantToRead} onHandleChange={onHandleChange} title='Want To Read' />
         </div>
 
       </div>

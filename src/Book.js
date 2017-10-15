@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
-
 class Book extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,

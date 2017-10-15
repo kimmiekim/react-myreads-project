@@ -75,7 +75,7 @@ updateQuery = (query) => {
                   <div className="book-authors">{book.authors}</div>
                 </div>
               </li> */}
-              <Book key={book.id} book={book} onChangeBookshelf = {this.props.onHandleChange}/>
+              <Book key={book.id} book={book} onChangeBookshelf={this.props.onHandleChange}/>
             {/* </ol> */}
 
           </div>
