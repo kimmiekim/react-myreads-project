@@ -14,7 +14,8 @@ class BookList extends Component {
     const { books, onHandleChange }= this.props
     const currentlyReading= books.filter((book)=> book.shelf=== 'currentlyReading')
     const wantToRead= books.filter((book)=> book.shelf=== 'wantToRead')
-    const read= books.filter((book)=> book.shelf=== 'read' )
+    const read= books.filter((book)=> book.shelf=== 'read')
+    const none= books.filter((book)=> book.shelf=== 'none')
 
     return (
     <div className="list-books">
@@ -27,6 +28,7 @@ class BookList extends Component {
           <BookShelf books={wantToRead} onHandleChange={onHandleChange} title='Want To Read' />
           <BookShelf books={read} onHandleChange={onHandleChange} title='Read' />
           <BookShelf books={currentlyReading} onHandleChange={onHandleChange} title='Currently Reading' />
+
         </div>
 
       </div>

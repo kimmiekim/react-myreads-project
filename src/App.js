@@ -16,8 +16,14 @@ class BooksApp extends React.Component {
   listBooks = () => {
     BooksAPI.getAll().then((books)=> {
       this.setState({ books: books })
-      console.log(books)
+      // console.log(books)
     })
+  }
+  searchBooks = (query) => {
+    BooksAPI.search(query, 30).then((books)=> {
+      this.setState({ books: books })
+    })
+    console.log(query)
   }
 
 // upon user input, sends the shelf status changes to the database
@@ -42,10 +48,10 @@ class BooksApp extends React.Component {
     return (
       <div className="App">
         <Route path="/search" render={()=>(
-          <Search books={this.state.books} onHandleChange={ this.updateShelf } />
+          <Search books={this.state.books} onHandleChange={this.updateShelf} searchBooks={this.searchBooks}/>
         )} />
         <Route exact path="/" render={()=>(
-          <BookList books={this.state.books} onHandleChange={ this.updateShelf } listBooks={ this.listBooks } />
+          <BookList books={this.state.books} onHandleChange={this.updateShelf} listBooks={this.listBooks} />
         )} />
       </div>
       )

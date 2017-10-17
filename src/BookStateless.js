@@ -2,7 +2,7 @@ import React from 'react'
 
 const BookStateless = (props) => {
 
-  function handleChange(shelf){
+  function handleChange(shelf) {
     const { onChangeBookshelf, book } = this.props
     // e = this.props.book.shelf
     console.log("hello", this.props.book.id)
@@ -15,7 +15,7 @@ const BookStateless = (props) => {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${props.book.imageLinks.thumbnail}")` }}></div>
           <div className="book-shelf-changer">
-            <select onChange={(event)=>{console.log("this", this)}}>
+            <select onChange={(event)=>{handleChange(props)}}>
               <option value="none" disabled >Move to...</option>
               <option value="currentlyReading" >Currently Reading</option>
               <option value="wantToRead" >Want to Read</option>

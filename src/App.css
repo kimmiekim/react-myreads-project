@@ -38,6 +38,7 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  text-align: center;
 }
 .bookshelf-books {
   text-align: center;
@@ -45,8 +46,8 @@ body, .app {
 
 .open-search {
   position: fixed;
-  right: 25px;
-  bottom: 25px;
+  right: 100px;
+  bottom: 100px;
 }
 .open-search a {
   display: block;
