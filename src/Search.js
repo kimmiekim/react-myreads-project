@@ -4,7 +4,7 @@ import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
 // import BookStateless from './BookStateless'
-import Book from './Book'
+import BookStateless from './BookStateless'
 
 class Search extends Component {
   state={
@@ -59,12 +59,12 @@ class Search extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {showingBooks.map((book) => (
-                  <Book key={book.id} book={book} onChangeBookshelf={this.props.onHandleChange}/>
+                  <BookStateless key={book.id} book={book} onChangeBookshelf={this.props.onHandleChange}/>
               )
             )}
           </ol>
         </div>
-        {console.log(showingBooks)}
+        {/* {console.log(showingBooks)} */}
       </div>
 
 

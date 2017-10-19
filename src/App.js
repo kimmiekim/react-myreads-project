@@ -28,12 +28,13 @@ class BooksApp extends React.Component {
 
 // upon user input, sends the shelf status changes to the database
 // and updates it:
-  updateShelf=(book, shelf)=> {
-    BooksAPI.update(book, shelf).then((data) => {
-      console.log("data", book.id)
+  updateShelf=(props, shelf)=> {
+    console.log("book", props.book)
+    BooksAPI.update(props.book, shelf).then((data) => {
+      console.log("data", data)
       this.setState((currentState)=>({
         books: currentState.books.map((b) => {
-          if (book.id === b.id){
+          if (props.book.id === b.id){
             console.log("working??", shelf)
             b.shelf = shelf
           }

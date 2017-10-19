@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Book from './Book'
+import BookStateless from './BookStateless'
 
 const BookShelf = (props) => {
 
@@ -11,7 +11,7 @@ const BookShelf = (props) => {
       <h2 className="bookshelf-title">{title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-          {books.map((book) => (<Book key={book.id} book={book} onChangeBookshelf={onHandleChange}/>))}
+          {books.map((book) => (<BookStateless key={book.id} book={book} onChangeBookshelf={onHandleChange}/>))}
           </ol>
         </div>
     </div>
