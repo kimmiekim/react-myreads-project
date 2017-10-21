@@ -10,7 +10,8 @@ import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
-    books : []
+    books : [],
+    searchedBooks : []
   }
 
   listBooks = () => {
@@ -20,22 +21,24 @@ class BooksApp extends React.Component {
     })
   }
   searchBooks = (query) => {
-    BooksAPI.search(query, 30).then((books)=> {
-      this.setState({ books: books })
-    })
-    console.log(query)
+    if (query){ //checking if query exists before making the search api call
+      BooksAPI.search(query, 30).then((books)=> {
+        this.setState({ searchedBooks: books })
+      })
+      // console.log(query)
+    }
   }
 
 // upon user input, sends the shelf status changes to the database
 // and updates it:
   updateShelf=(props, shelf)=> {
-    console.log("book", props.book)
+    // console.log("book", props.book)
     BooksAPI.update(props.book, shelf).then((data) => {
-      console.log("data", data)
+      // console.log("data", data)
       this.setState((currentState)=>({
         books: currentState.books.map((b) => {
           if (props.book.id === b.id){
-            console.log("working??", shelf)
+            // console.log("working??", shelf)
             b.shelf = shelf
           }
           return b
@@ -49,7 +52,7 @@ class BooksApp extends React.Component {
     return (
       <div className="App">
         <Route path="/search" render={()=>(
-          <Search books={this.state.books} onHandleChange={this.updateShelf} searchBooks={this.searchBooks}/>
+          <Search books={this.state.searchedBooks} onHandleChange={this.updateShelf} searchBooks={this.searchBooks}/>
         )} />
         <Route exact path="/" render={()=>(
           <BookList books={this.state.books} onHandleChange={this.updateShelf} listBooks={this.listBooks} />
