@@ -17,13 +17,14 @@ class BooksApp extends React.Component {
   listBooks = () => {
     BooksAPI.getAll().then((books)=> {
       this.setState({ books: books })
-      // console.log(books)
+      // console.log("books", books.map((book) => book.shelf))
     })
   }
   searchBooks = (query) => {
     if (query){ //checking if query exists before making the search api call
       BooksAPI.search(query, 30).then((books)=> {
         this.setState({ searchedBooks: books })
+        // console.log('searchedBooks', books.map((book) => book.shelf))
       })
       // console.log(query)
     }
@@ -52,7 +53,7 @@ class BooksApp extends React.Component {
     return (
       <div className="App">
         <Route path="/search" render={()=>(
-          <Search books={this.state.searchedBooks} onHandleChange={this.updateShelf} searchBooks={this.searchBooks}/>
+          <Search books={this.state.searchedBooks} bookList = {this.state.books} onHandleChange={this.updateShelf} searchBooks={this.searchBooks} listBooks={this.listBooks}/>
         )} />
         <Route exact path="/" render={()=>(
           <BookList books={this.state.books} onHandleChange={this.updateShelf} listBooks={this.listBooks} />

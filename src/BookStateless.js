@@ -11,7 +11,7 @@ const BookStateless = (props) => {
   const coverStyle = {
     width: 128,
     height: 188,
-    backgroundImage: `url("${props.book.imageLinks.thumbnail? props.book.imageLinks.thumbnail : null}")`
+    backgroundImage: `url("${props.book.imageLinks.thumbnail? props.book.imageLinks.thumbnail : 'http://dummyimage.com'}")`
   }
 
   return(

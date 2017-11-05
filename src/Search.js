@@ -8,30 +8,47 @@ import BookStateless from './BookStateless'
 
 class Search extends Component {
   state={
-    query: ''
+    query: '',
+    books: [],
+
+  }
+  componentDidMount() {
+    this.props.listBooks();
   }
 
   updateQuery = (query) => {
     this.setState({ query: query })
-    console.log("this", query)
     this.props.searchBooks(query)
   }
+
+  updateSearchedBookShelf = (book) => {
+    const { bookList} = this.props
+    const searchedBook = bookList.find((listedBook) => (listedBook.id === book.id))
+
+    if (searchedBook) {
+      book.shelf = searchedBook.shelf
+      // console.log("searched book", searchedBook.shelf)
+
+    } else {
+      book.shelf = 'none'
+    }
+    return book
+  }
+
   render() {
     const { query } = this.state
-    console.log("testing query", typeof query)
     const { books } = this.props
 
     let showingBooks
-
     // filter the list with search query
     if(query){
-      console.log("query length", query.length)
       const match = new RegExp(escapeRegExp(query), 'i')
-      console.log("match",match)
       showingBooks = books.filter((book) => match.test(book.title))
     } else {
       showingBooks = books
     }
+
+    showingBooks.map((book) => { this.updateSearchedBookShelf(book)})
     showingBooks.sort(sortBy('title'))
 
     return (
@@ -51,12 +68,15 @@ class Search extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {showingBooks.map((book) => (
-                  <BookStateless key={book.id} book={book} onChangeBookshelf={this.props.onHandleChange}/>
+                  <BookStateless key={book.id}
+                                 book={book}
+                                 onChangeBookshelf={(book, shelf) => {
+                                   this.props.onHandleChange(book, shelf)
+                               }}/>
               )
             )}
           </ol>
         </div>
-        {/* {console.log(showingBooks)} */}
       </div>
 
 
