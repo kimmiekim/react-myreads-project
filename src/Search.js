@@ -40,16 +40,20 @@ class Search extends Component {
     const { books } = this.props
 
     let showingBooks
-    // filter the list with search query
-    if(query){
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showingBooks = books.filter((book) => match.test(book.title))
-    } else {
-      showingBooks = books
+    try {
+      if(query){
+        const match = new RegExp(escapeRegExp(query), 'i')
+        showingBooks = books.filter((book) => match.test(book.title))
+      } else {
+        showingBooks = books
+      }
+      showingBooks.map((book) => { this.updateSearchedBookShelf(book)})
+      showingBooks.sort(sortBy('title'))
     }
-
-    showingBooks.map((book) => { this.updateSearchedBookShelf(book)})
-    showingBooks.sort(sortBy('title'))
+    catch (error){
+      // alert("title doesn't exist")
+      // this.setState({query : ''})
+    }
 
     return (
       <div className="search-books">
@@ -57,10 +61,10 @@ class Search extends Component {
           <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             <input value={query}
-                    onChange={(event)=> this.updateQuery(event.target.value)}
-                    type="text"
-                    placeholder="Search by title or author"
-                  />
+              onChange={(event)=> this.updateQuery(event.target.value)}
+              type="text"
+              placeholder="Search by title or author"
+            />
             {/* {JSON.stringify(this.state)} */}
           </div>
         </div>
@@ -68,20 +72,19 @@ class Search extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {showingBooks.map((book) => (
-                  <BookStateless key={book.id}
-                                 book={book}
-                                 onChangeBookshelf={(book, shelf) => {
-                                   this.props.onHandleChange(book, shelf)
-                               }}/>
+              <BookStateless key={book.id}
+                book={book}
+                onChangeBookshelf={(book, shelf) => {
+                  this.props.onHandleChange(book, shelf)
+                }}/>
               )
             )}
           </ol>
         </div>
       </div>
-
-
-
     )
+
+
   }
 }
 
